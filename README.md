@@ -35,5 +35,4 @@ base: '/'
 ## 連絡先
 
 山口 剛（YOHAKU Lab.）  
-090-2505-7937 / yamaguchi.g5167@gmail.com  
-熊本県菊池郡大津町
+
