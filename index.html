@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YOHAKU Lab. | 熊本のDX・業務改善コンサルタント</title>
+  <meta name="description" content="熊本県大津町のコンサルタント事務所。建設・医療・福祉・製造業のDX推進・業務改善・AI活用を支援します。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1a56db;
+      --primary-dark: #1341a8;
+      --accent: #0ea5e9;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --green: #059669;
+      --yellow: #d97706;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    /* ナビ */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-weight: 900; font-size: 1.1rem;
+      color: var(--primary); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-light);
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--primary); color: white;
+      padding: 0.5rem 1.25rem; border-radius: 99px;
+      text-decoration: none; font-size: 0.875rem; font-weight: 700;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+    }
+
+    /* ヒーロー */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 50%, #0ea5e9 100%);
+      color: white; text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.35rem 1rem;
+      border-radius: 99px; font-size: 0.8rem; font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      font-weight: 900; line-height: 1.3;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #fbbf24, #f97316);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1rem; opacity: 0.85;
+      max-width: 540px; margin: 0 auto 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: white; color: var(--primary);
+      padding: 0.875rem 2rem; border-radius: 99px;
+      font-weight: 700; text-decoration: none; font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.6); color: white;
+      padding: 0.875rem 2rem; border-radius: 99px;
+      font-weight: 700; text-decoration: none; font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; justify-content: center;
+      margin-top: 3rem; padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      flex-wrap: wrap;
+    }
+    .hero-stats .stat strong { display: block; font-size: 1.75rem; font-weight: 900; }
+    .hero-stats .stat span { font-size: 0.8rem; opacity: 0.75; }
+
+    /* セクション共通 */
+    section { padding: 5rem 1.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      color: var(--primary); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 900; margin-bottom: 1rem; line-height: 1.3;
+    }
+    .section-desc { color: var(--text-light); max-width: 560px; margin-bottom: 3rem; }
+
+    /* 課題セクション */
+    .problems { background: white; }
+    .problems-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .problem-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .problem-card .icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .problem-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .problem-card p { font-size: 0.85rem; color: var(--text-light); }
+    .problem-card.highlight {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    /* サービス */
+    .services { background: var(--bg); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: white; border-radius: 16px;
+      padding: 2rem; border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .service-card p { font-size: 0.875rem; color: var(--text-light); margin-bottom: 1rem; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.2rem 0.6rem; border-radius: 99px;
+      background: var(--bg); color: var(--text-light);
+      border: 1px solid var(--border);
+    }
+
+    /* 対応業種 */
+    .industries { background: white; }
+    .industries-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .industry-card {
+      text-align: center; padding: 1.75rem 1rem;
+      border: 1px solid var(--border); border-radius: 16px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .industry-card:hover { border-color: var(--primary); background: #eff6ff; }
+    .industry-card .emoji { font-size: 2rem; display: block; margin-bottom: 0.6rem; }
+    .industry-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .industry-card p { font-size: 0.75rem; color: var(--text-light); }
+
+    /* ツール紹介 */
+    .tools { background: #0f172a; color: white; }
+    .tools h2 { color: white; }
+    .tools .section-label { color: #60a5fa; }
+    .tools .section-desc { color: #94a3b8; }
+    .tools-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .tool-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 1.75rem;
+      transition: background 0.2s;
+    }
+    .tool-card:hover { background: rgba(255,255,255,0.08); }
+    .tool-card .tool-header {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+    }
+    .tool-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .tool-card h3 { font-size: 1rem; font-weight: 700; color: white; }
+    .tool-card .badge {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 0.15rem 0.5rem; border-radius: 99px;
+      background: #1a56db; color: white; margin-left: 0.5rem;
+    }
+    .tool-card p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem; }
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem; font-weight: 700; color: #60a5fa;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .tool-link:hover { gap: 0.6rem; }
+
+    /* DX診断ツール */
+    .dx-check { background: var(--bg); }
+    .dx-tool {
+      background: white; border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem;
+      max-width: 720px; margin: 0 auto;
+    }
+    .dx-tool h3 {
+      font-size: 1.25rem; font-weight: 900; margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .dx-tool > p {
+      text-align: center; color: var(--text-light);
+      font-size: 0.875rem; margin-bottom: 2rem;
+    }
+    .dx-categories { display: flex; flex-direction: column; gap: 1.25rem; }
+    .dx-category h4 {
+      font-size: 0.85rem; font-weight: 700; color: var(--primary);
+      margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .dx-items { display: flex; flex-direction: column; gap: 0.5rem; }
+    .dx-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.625rem 0.75rem; border-radius: 8px;
+      cursor: pointer; transition: background 0.15s;
+      user-select: none;
+    }
+    .dx-item:hover { background: var(--bg); }
+    .dx-item input { margin-top: 2px; accent-color: var(--primary); flex-shrink: 0; }
+    .dx-item label { font-size: 0.875rem; cursor: pointer; }
+    .dx-result {
+      margin-top: 2rem; padding: 1.5rem;
+      border-radius: 12px; text-align: center;
+      display: none;
+    }
+    .dx-result.show { display: block; }
+    .dx-score {
+      font-size: 3rem; font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    .dx-result h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .dx-result p { font-size: 0.875rem; }
+    .dx-progress {
+      width: 100%; height: 8px; background: var(--border);
+      border-radius: 99px; margin: 1rem 0;
+    }
+    .dx-progress-bar {
+      height: 100%; border-radius: 99px;
+      transition: width 0.5s ease;
+    }
+    .dx-btn {
+      margin-top: 1.5rem;
+      background: var(--primary); color: white;
+      border: none; padding: 0.875rem 2rem;
+      border-radius: 99px; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; transition: background 0.2s;
+      width: 100%;
+    }
+    .dx-btn:hover { background: var(--primary-dark); }
+    .dx-count {
+      text-align: center; margin-top: 1rem;
+      font-size: 0.8rem; color: var(--text-light);
+    }
+
+    /* 料金 */
+    .pricing { background: white; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; max-width: 900px; margin: 0 auto;
+    }
+    .pricing-card {
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 2rem; text-align: center;
+      position: relative; transition: transform 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card.featured {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(26,86,219,0.08);
+    }
+    .pricing-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: white;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.2rem 0.8rem; border-radius: 99px;
+    }
+    .pricing-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-card .price {
+      font-size: 1.75rem; font-weight: 900;
+      color: var(--primary); margin: 1rem 0;
+    }
+    .pricing-card .price span { font-size: 0.9rem; font-weight: 400; color: var(--text-light); }
+    .pricing-card ul {
+      list-style: none; text-align: left;
+      font-size: 0.85rem; color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+    .pricing-card ul li {
+      padding: 0.35rem 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .pricing-card ul li::before {
+      content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0;
+    }
+    .pricing-card .btn-card {
+      display: block; text-decoration: none;
+      padding: 0.75rem; border-radius: 99px;
+      font-weight: 700; font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .pricing-card.featured .btn-card {
+      background: var(--primary); color: white;
+    }
+    .pricing-card:not(.featured) .btn-card {
+      border: 2px solid var(--border); color: var(--text);
+    }
+    .pricing-card:not(.featured) .btn-card:hover { background: var(--bg); }
+    .pricing-card.featured .btn-card:hover { background: var(--primary-dark); }
+
+    /* お問い合わせ */
+    .contact { background: linear-gradient(135deg, #1e3a8a, #1a56db); color: white; }
+    .contact h2 { color: white; }
+    .contact .section-label { color: #93c5fd; }
+    .contact .section-desc { color: rgba(255,255,255,0.75); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    @media (max-width: 768px) { .contact-inner { grid-template-columns: 1fr; } }
+    .contact-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; color: white; }
+    .contact-info ul { list-style: none; }
+    .contact-info ul li {
+      padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.875rem; color: rgba(255,255,255,0.8);
+      display: flex; gap: 0.75rem;
+    }
+    .contact-info ul li strong { color: white; min-width: 5rem; }
+    .contact-form { background: white; border-radius: 20px; padding: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block; font-size: 0.8rem; font-weight: 700;
+      color: var(--text); margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.75rem 1rem;
+      font-size: 0.875rem; font-family: inherit;
+      transition: border-color 0.2s;
+      color: var(--text);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%; background: var(--primary); color: white;
+      border: none; padding: 0.875rem;
+      border-radius: 99px; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--primary-dark); }
+    .form-note { font-size: 0.75rem; color: var(--text-light); text-align: center; margin-top: 0.75rem; }
+
+    /* フッター */
+    footer {
+      background: #0f172a; color: #94a3b8;
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+    footer .footer-logo {
+      font-size: 1.25rem; font-weight: 900;
+      color: white; margin-bottom: 0.75rem;
+    }
+    footer p { font-size: 0.8rem; margin-bottom: 0.5rem; }
+    footer .footer-links {
+      display: flex; gap: 1.5rem; justify-content: center;
+      margin: 1.5rem 0; flex-wrap: wrap;
+    }
+    footer .footer-links a {
+      font-size: 0.8rem; color: #94a3b8; text-decoration: none;
+    }
+    footer .footer-links a:hover { color: white; }
+    footer .copyright { font-size: 0.75rem; color: #475569; margin-top: 1.5rem; }
+
+    /* アニメーション */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ナビゲーション -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="6" fill="#1a56db"/>
+        <path d="M7 12h10M12 7v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      YOHAKU <span>Lab.</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">サービス</a>
+      <a href="#industries">対応業種</a>
+      <a href="#dx-check">DX診断</a>
+      <a href="#pricing">料金</a>
+      <a href="#contact">お問い合わせ</a>
+    </div>
+    <a href="#contact" class="nav-cta">無料相談</a>
+  </div>
+</nav>
+
+<!-- ヒーロー -->
+<section class="hero">
+  <div class="hero-badge">🌿 熊本県大津町発 DX・業務改善コンサルタント</div>
+  <h1>
+    現場を知るコンサルが、<br>
+    あなたの会社の<em>「余白」</em>を取り戻す
+  </h1>
+  <p>
+    建設・医療・福祉・製造業など幅広い業種に対応。<br>
+    AI・DX・業務改善で、本当に大事な仕事に集中できる環境をつくります。
+  </p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">📅 無料相談はこちら</a>
+    <a href="#dx-check" class="btn-outline">🔍 DX診断（無料）</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><strong>5+</strong><span>対応業種</span></div>
+    <div class="stat"><strong>熊本県</strong><span>大津町拠点・全国対応</span></div>
+    <div class="stat"><strong>AI活用</strong><span>最新ツールで支援</span></div>
+  </div>
+</section>
+
+<!-- 課題セクション -->
+<section class="problems" id="problems">
+  <div class="section-inner">
+    <span class="section-label">こんなお悩みはありませんか？</span>
+    <h2>「忙しいのに、<br>なぜか前に進まない」</h2>
+    <p class="section-desc">多くの中小企業・個人事業主が抱える共通の課題があります。</p>
+    <div class="problems-grid fade-in">
+      <div class="problem-card highlight">
+        <div class="icon">📄</div>
+        <h3>紙・Excel管理が限界</h3>
+        <p>書類の作成・保管・検索に時間がかかり、本業に集中できない</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">🤖</div>
+        <h3>AIを使いたいが何から始めるかわからない</h3>
+        <p>ChatGPTは知っているが、自社業務への活用方法が見えない</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">⏰</div>
+        <h3>残業・手作業が多い</h3>
+        <p>同じ作業の繰り返し。自動化できるのはわかっているが手がつかない</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">💰</div>
+        <h3>ITツール導入で失敗した</h3>
+        <p>高いシステムを入れたのに、現場に定着せず使われていない</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- サービス -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <span class="section-label">Services</span>
+    <h2>YOHAKU Lab. の支援内容</h2>
+    <p class="section-desc">「現場感覚」と「最新技術」を組み合わせた、実効性のある支援を提供します。</p>
+    <div class="services-grid fade-in">
+      <div class="service-card">
+        <div class="service-icon" style="background:#eff6ff">💡</div>
+        <h3>DX・AX推進支援</h3>
+        <p>業務フローの可視化からAI導入まで。現場に合ったデジタル変革を段階的に設計します。</p>
+        <div class="service-tags">
+          <span class="tag">業務分析</span>
+          <span class="tag">AI導入</span>
+          <span class="tag">自動化設計</span>
+          <span class="tag">RPA</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#f0fdf4">📊</div>
+        <h3>業務改善コンサルティング</h3>
+        <p>ヒアリングから現状分析・改善提案・実装支援まで一貫してサポート。絵に描いた餅にしません。</p>
+        <div class="service-tags">
+          <span class="tag">ヒアリング</span>
+          <span class="tag">フロー設計</span>
+          <span class="tag">KPI設定</span>
+          <span class="tag">定着支援</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#fdf4ff">🛠️</div>
+        <h3>ITツール導入・開発</h3>
+        <p>既製品の選定・設定から、オーダーメイドのWebツール開発まで。使われるシステムをつくります。</p>
+        <div class="service-tags">
+          <span class="tag">ツール選定</span>
+          <span class="tag">Web開発</span>
+          <span class="tag">研修</span>
+          <span class="tag">保守</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#fff7ed">📝</div>
+        <h3>書類・文書デジタル化</h3>
+        <p>紙の領収書・請求書・報告書を電子化。電子帳簿保存法対応も含め、コンプライアンス準拠を支援。</p>
+        <div class="service-tags">
+          <span class="tag">電帳法対応</span>
+          <span class="tag">OCR</span>
+          <span class="tag">ペーパーレス</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#f0f9ff">🎓</div>
+        <h3>AI活用研修・社内教育</h3>
+        <p>ChatGPT・Claude・生成AIの業務活用方法を、現場スタッフにわかりやすく指導します。</p>
+        <div class="service-tags">
+          <span class="tag">研修設計</span>
+          <span class="tag">ChatGPT</span>
+          <span class="tag">Claude</span>
+          <span class="tag">プロンプト設計</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#fefce8">📈</div>
+        <h3>経営・戦略コンサルティング</h3>
+        <p>DXを経営戦略と連動させ、投資対効果の高い優先順位付けをサポートします。</p>
+        <div class="service-tags">
+          <span class="tag">戦略立案</span>
+          <span class="tag">ROI分析</span>
+          <span class="tag">ロードマップ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 対応業種 -->
+<section class="industries" id="industries">
+  <div class="section-inner">
+    <span class="section-label">Industries</span>
+    <h2>対応業種</h2>
+    <p class="section-desc">各業界特有の課題・法規制・業務フローを熟知した上で支援します。</p>
+    <div class="industries-grid fade-in">
+      <div class="industry-card">
+        <span class="emoji">🏗️</span>
+        <h3>建設業</h3>
+        <p>工程管理・原価・現場報告書の自動化</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">🏥</span>
+        <h3>医療</h3>
+        <p>クリニック業務効率化・電子カルテ移行</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">🤝</span>
+        <h3>福祉・介護</h3>
+        <p>ケア記録・シフト・請求書の自動化</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">🏭</span>
+        <h3>製造業</h3>
+        <p>生産管理・品質記録・工程最適化</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">🌾</span>
+        <h3>農業</h3>
+        <p>スマート農業・補助金申請・記録管理</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">🏪</span>
+        <h3>小売・飲食</h3>
+        <p>POS連携・在庫管理・集客DX</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">📜</span>
+        <h3>士業・事務所</h3>
+        <p>電子申請・クラウド会計・事務自動化</p>
+      </div>
+      <div class="industry-card">
+        <span class="emoji">💼</span>
+        <h3>その他全業種</h3>
+        <p>業種問わずお気軽にご相談ください</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 開発ツール紹介 -->
+<section class="tools" id="tools">
+  <div class="section-inner">
+    <span class="section-label">Tools</span>
+    <h2>YOHAKU Lab. 開発ツール</h2>
+    <p class="section-desc">コンサルティングで培ったノウハウをもとに、実際の現場で使えるツールを開発・提供しています。</p>
+    <div class="tools-grid fade-in">
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#1a56db">🛡️</div>
+          <div>
+            <h3>YOHAKU Docs <span class="badge">無料公開中</span></h3>
+          </div>
+        </div>
+        <p>電子帳簿保存法対応の書類管理システム。領収書・請求書をアップロードするだけでOCR自動抽出・タイムスタンプ付与・CSV出力まで対応。</p>
+        <a href="https://yohaku-docs.vercel.app" target="_blank" class="tool-link">
+          アプリを使う →
+        </a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#059669">📊</div>
+          <div>
+            <h3>DX診断ツール <span class="badge">無料</span></h3>
+          </div>
+        </div>
+        <p>5分でわかる自社のDX成熟度診断。業種・規模に応じたスコアと改善提案を自動生成。商談前のヒアリングにも活用できます。</p>
+        <a href="#dx-check" class="tool-link">
+          診断を試す →
+        </a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#7c3aed">📄</div>
+          <div>
+            <h3>DX提案書自動生成 <span class="badge">準備中</span></h3>
+          </div>
+        </div>
+        <p>ヒアリング内容を入力するだけで、クライアントに提出できるレベルのDX提案書（Word形式）を自動生成するツール。</p>
+        <a href="#contact" class="tool-link">
+          リリース通知を受け取る →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DX診断ツール -->
+<section class="dx-check" id="dx-check">
+  <div class="section-inner">
+    <span class="section-label">DX Diagnosis</span>
+    <h2>無料 DX成熟度診断</h2>
+    <p class="section-desc">15項目のチェックで、あなたの会社のDX現在地がわかります。所要時間：約2分</p>
+    <div class="dx-tool fade-in">
+      <h3>🔍 DX成熟度チェックリスト</h3>
+      <p>現在の自社の状況に当てはまる項目にチェックを入れてください</p>
+
+      <div class="dx-categories" id="dx-form">
+        <div class="dx-category">
+          <h4>📁 書類・データ管理</h4>
+          <div class="dx-items">
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>請求書・領収書を電子保存している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>書類をクラウドで共有・管理している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>Excelや紙への二重入力がほぼない</span></label>
+          </div>
+        </div>
+        <div class="dx-category">
+          <h4>💬 社内コミュニケーション</h4>
+          <div class="dx-items">
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>チャットツール（Slack等）で連絡している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>会議録・議事録をデジタルで共有している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>テレワーク・リモート対応が可能な環境がある</span></label>
+          </div>
+        </div>
+        <div class="dx-category">
+          <h4>🤖 AI・自動化</h4>
+          <div class="dx-items">
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>ChatGPTやClaude等のAIツールを業務で使っている</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>繰り返し作業の自動化（RPA等）を導入している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>データ分析・可視化ツールを活用している</span></label>
+          </div>
+        </div>
+        <div class="dx-category">
+          <h4>👥 顧客・営業管理</h4>
+          <div class="dx-items">
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>顧客情報をCRM・スプレッドシートで一元管理している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>Webサイトやオンラインから問い合わせが来る仕組みがある</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>見積書・契約書をデジタルで送付・管理している</span></label>
+          </div>
+        </div>
+        <div class="dx-category">
+          <h4>🏢 組織・戦略</h4>
+          <div class="dx-items">
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>DX推進の担当者（またはリーダー）が決まっている</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>ITツールの導入・研修に予算を確保している</span></label>
+            <label class="dx-item"><input type="checkbox" class="dx-chk" /><span>経営層がDX・デジタル化に前向きである</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-count" id="dx-count">0 / 15 項目チェック済み</div>
+      <div class="dx-progress"><div class="dx-progress-bar" id="dx-bar" style="width:0%;background:#1a56db"></div></div>
+
+      <div class="dx-result" id="dx-result">
+        <div class="dx-score" id="dx-score">0点</div>
+        <h4 id="dx-title"></h4>
+        <p id="dx-desc"></p>
+        <a href="#contact" style="display:inline-block;margin-top:1rem;background:#1a56db;color:white;padding:0.75rem 1.75rem;border-radius:99px;text-decoration:none;font-weight:700;font-size:0.9rem">
+          無料相談で改善策を聞く →
+        </a>
+      </div>
+
+      <button class="dx-btn" onclick="runDxCheck()">診断結果を見る</button>
+    </div>
+  </div>
+</section>
+
+<!-- 料金 -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <span class="section-label">Pricing</span>
+    <h2>料金プラン（概算）</h2>
+    <p class="section-desc">案件の規模・内容によって変動します。まずは無料相談でご状況をお聞かせください。</p>
+    <div class="pricing-grid fade-in">
+      <div class="pricing-card">
+        <h3>スポットコンサル</h3>
+        <div class="price">¥33,000〜<span>/回</span></div>
+        <ul>
+          <li>単発ヒアリング・アドバイス</li>
+          <li>現状分析レポート</li>
+          <li>ツール選定提案</li>
+          <li>オンライン対応可</li>
+        </ul>
+        <a href="#contact" class="btn-card">相談する</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">人気</div>
+        <h3>月次顧問契約</h3>
+        <div class="price">¥55,000〜<span>/月</span></div>
+        <ul>
+          <li>月2回のミーティング</li>
+          <li>DX推進ロードマップ作成</li>
+          <li>ツール導入・設定サポート</li>
+          <li>Slack随時相談対応</li>
+          <li>月次レポート作成</li>
+        </ul>
+        <a href="#contact" class="btn-card">相談する</a>
+      </div>
+      <div class="pricing-card">
+        <h3>プロジェクト型</h3>
+        <div class="price">要相談<span></span></div>
+        <ul>
+          <li>システム開発・導入</li>
+          <li>大規模DX推進</li>
+          <li>研修プログラム設計</li>
+          <li>補助金活用支援</li>
+        </ul>
+        <a href="#contact" class="btn-card">相談する</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:var(--text-light)">
+      ※ 記載金額は概算です。詳細は無料相談にてご確認ください。<br>
+      IT導入補助金・小規模事業者持続化補助金の活用支援も対応可能です。
+    </p>
+  </div>
+</section>
+
+<!-- お問い合わせ -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <span class="section-label">Contact</span>
+    <h2>まずは無料相談から</h2>
+    <p class="section-desc">「何から始めればいいかわからない」でも大丈夫。お気軽にご連絡ください。</p>
+    <div class="contact-inner">
+      <div class="contact-info">
+        <h3>YOHAKU Lab.</h3>
+        <ul>
+          <li><strong>代表</strong>山口 剛（Go Yamaguchi）</li>
+          <li><strong>所在地</strong>熊本県菊池郡大津町</li>
+          <li><strong>対応エリア</strong>熊本県内・全国（オンライン）</li>
+          <li><strong>専門領域</strong>DX / AX / 業務改善 / 建設 / 医療 / 福祉・介護</li>
+          <li><strong>対応時間</strong>平日 9:00〜18:00（要相談）</li>
+        </ul>
+        <div style="margin-top:2rem;padding:1.25rem;background:rgba(255,255,255,0.1);border-radius:12px">
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.8);margin-bottom:0.5rem">
+            💡 <strong style="color:white">初回相談は無料です</strong>
+          </p>
+          <p style="font-size:0.8rem;color:rgba(255,255,255,0.65)">
+            現状のヒアリングと課題整理、改善の方向性をお伝えします。
+            契約の強制は一切ありません。
+          </p>
+        </div>
+      </div>
+      <div class="contact-form">
+        <form action="https://formspree.io/f/xpwzgqov" method="POST">
+          <div class="form-group">
+            <label>お名前 *</label>
+            <input type="text" name="name" required placeholder="山田 太郎" />
+          </div>
+          <div class="form-group">
+            <label>会社名・屋号</label>
+            <input type="text" name="company" placeholder="〇〇株式会社" />
+          </div>
+          <div class="form-group">
+            <label>業種 *</label>
+            <select name="industry" required>
+              <option value="">選択してください</option>
+              <option>建設業</option>
+              <option>医療・クリニック</option>
+              <option>福祉・介護</option>
+              <option>製造業</option>
+              <option>農業</option>
+              <option>小売・飲食</option>
+              <option>士業・コンサル</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>メールアドレス *</label>
+            <input type="email" name="email" required placeholder="example@company.com" />
+          </div>
+          <div class="form-group">
+            <label>お問い合わせ内容 *</label>
+            <textarea name="message" required placeholder="例：DXを進めたいが何から始めればいいかわからない。まずは相談したい。"></textarea>
+          </div>
+          <button type="submit" class="form-submit">送信する（無料相談を申し込む）</button>
+          <p class="form-note">送信後、2営業日以内にご返信いたします</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-logo">YOHAKU Lab.</div>
+  <p>熊本県大津町 | DX・業務改善・AI活用コンサルタント</p>
+  <div class="footer-links">
+    <a href="#services">サービス</a>
+    <a href="#industries">対応業種</a>
+    <a href="#dx-check">DX診断</a>
+    <a href="https://yohaku-docs.vercel.app" target="_blank">YOHAKU Docs</a>
+    <a href="https://github.com/yamaguchig5167-afk" target="_blank">GitHub</a>
+  </div>
+  <p class="copyright">© 2026 YOHAKU Lab. All rights reserved.</p>
+</footer>
+
+<script>
+  // フェードインアニメーション
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // チェックカウント更新
+  document.querySelectorAll('.dx-chk').forEach(chk => {
+    chk.addEventListener('change', updateCount);
+  });
+  function updateCount() {
+    const total = document.querySelectorAll('.dx-chk').length;
+    const checked = document.querySelectorAll('.dx-chk:checked').length;
+    document.getElementById('dx-count').textContent = `${checked} / ${total} 項目チェック済み`;
+    document.getElementById('dx-bar').style.width = `${(checked/total)*100}%`;
+  }
+
+  // DX診断実行
+  function runDxCheck() {
+    const total = document.querySelectorAll('.dx-chk').length;
+    const checked = document.querySelectorAll('.dx-chk:checked').length;
+    const pct = Math.round((checked / total) * 100);
+    const result = document.getElementById('dx-result');
+    document.getElementById('dx-score').textContent = `${pct}点`;
+
+    let title, desc, color;
+    if (pct >= 80) {
+      title = '🏆 DX先進企業 — さらなる高みへ';
+      desc = 'DX化が非常に進んでいます。次のステップはAI・データ活用による競争優位の確立です。YOHAKU Lab.が高度な戦略立案をサポートします。';
+      color = '#059669';
+    } else if (pct >= 60) {
+      title = '✅ DX中級企業 — あと一歩で大きく変わる';
+      desc = 'いくつかの領域でDXが進んでいます。重点的に取り組むべき領域を特定し、加速する段階です。';
+      color = '#1a56db';
+    } else if (pct >= 40) {
+      title = '⚡ DX初級企業 — 土台づくりが重要';
+      desc = '一部でデジタル化が進んでいますが、まだ紙・手作業が多い状態です。優先順位をつけて着実に進めましょう。';
+      color = '#d97706';
+    } else {
+      title = '🚀 DXスタート段階 — 今が始めどき';
+      desc = 'DX化の余地が大きい状態です。小さなところから始めることで、大きな効果が生まれます。まずは無料相談でロードマップを作りましょう。';
+      color = '#dc2626';
+    }
+
+    document.getElementById('dx-title').textContent = title;
+    document.getElementById('dx-desc').textContent = desc;
+    document.getElementById('dx-score').style.color = color;
+    result.style.background = color + '10';
+    result.style.border = `1px solid ${color}30`;
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+</body>
+</html>
